@@ -1,0 +1,25 @@
+# Core
+yfinance
+pandas
+numpy
+matplotlib
+scikit-learn
+xgboost
+ta
+
+# Deep Learning
+tensorflow==2.*
+
+# Portfolio & Stats
+scipy
+# scikit-learn has LedoitWolf (sklearn.covariance)
+
+# Optional (later)
+# shap
+# pythainlp
+# fastapi
+# uvicorn
+# streamlit
+# stable-baselines3
+# optuna
+# torch
