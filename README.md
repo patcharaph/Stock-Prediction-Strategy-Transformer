@@ -51,8 +51,6 @@ Encoder block (MultiHeadAttention + FFN)
 Backtest กราฟเทียบ LSTM vs Transformer vs Market
 
 
-⏳ สิ่งที่เหลือ (Next Steps)
-
 🔲 Sentiment v1 (lexicon-based pipeline)
 
 Tokenize ข่าว/โพสต์ภาษาไทยด้วย PyThaiNLP
@@ -62,6 +60,8 @@ Lexicon pos/neg wordlist → aggregate ต่อวัน
 Join เข้ากับ features เป็น Sentiment_Daily
 
 สร้างไฟล์ dataset_features_labels_with_sentiment.csv พร้อมเทรนใหม่ได้
+
+⏳ สิ่งที่เหลือ (Next Steps)
 
 🔲 MPT Efficient Frontier v1 (01_mpt_efficient_frontier.ipynb)
 
@@ -120,16 +120,67 @@ C) Integration
 
 🚦 สถานะปัจจุบัน
 
-📍 เราอยู่ ปลาย W3–4
+แผนถัดไป
+W5–6 (ทำต่อ)
 
-Baselines → ✅
+Sentiment integration
 
-LSTM → ✅
+เปิด 06_sentiment_pipeline.ipynb
 
-Transformer → ✅ (ยังต้อง wrap เป็น notebook + add Attention)
+เตรียม news_th.csv (หรือใช้ dummy จาก template)
 
-Sentiment v1 → ✅ (ยังไม่เป็น production-ready sentiment model)
+รันจนได้ dataset_features_labels_with_sentiment.csv
 
-MPT Frontier → ✅
+กลับไป 05_transformer_upgrade.ipynb แล้วรันใหม่เพื่อฝึก LSTM/Transformer พร้อมฟีเจอร์ Sentiment_Daily
 
-Rolling Rebalance → ✅ (baseline เวอร์ชันแรก)
+เป้าหมายไฟล์:
+
+dataset_features_labels_with_sentiment.csv
+
+metrics_transformer_test.csv, metrics_lstm_test.csv
+
+backtest_transformer.csv, backtest_lstm.csv
+
+Portfolio side (Rolling Rebalance + Metrics)
+
+สร้าง/เปิด 02_mpt_rolling_rebalance.ipynb
+
+ขั้นตอน:
+
+โหลดราคาหุ้น (ชุดเดียวกับ MPT v1)
+
+คำนวณผลตอบแทนรายวัน → rolling window 252d → สร้าง Max-Sharpe weights รายเดือน
+
+ได้ซีรีส์ผลตอบแทนกลยุทธ์ (rolling_rebalance_returns.csv)
+
+คำนวณ Sharpe, CAGR, MaxDD, Vol และเปรียบเทียบ EW
+
+เป้าหมายไฟล์:
+
+rolling_weights_max_sharpe.csv
+
+rolling_rebalance_returns.csv
+
+strategy_performance_metrics.csv
+
+เคล็ดลับกัน error: รันโน้ตบุ๊กจากบนลงล่างในครั้งเดียวให้จบหนึ่ง workflow เพื่อเลี่ยง NameError (ตัวแปรหาย)
+
+W7 Explainability
+
+SHAP สำหรับ XGB / linear (เริ่มง่าย)
+
+Attention heatmap สำหรับ Transformer (ดูว่าเน้น lag/feature ใด)
+
+ออกไฟล์: shap_summary.png, attention_heatmap.png, และ “notes อธิบายสัญญาณ”
+
+W8 Serving & Dashboard
+
+FastAPI: endpoint /predict + /signal (โหลด weights/saved scaler)
+
+Streamlit: dashboard แสดงราคา, สัญญาณ, เมตริก, น้ำหนักพอร์ต
+
+โครงไฟล์:
+
+src/serving/api.py (FastAPI)
+
+app/streamlit_app.py (Streamlit)
