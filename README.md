@@ -120,67 +120,63 @@ C) Integration
 
 🚦 สถานะปัจจุบัน
 
-แผนถัดไป
+Portfolio side (MPT v1 → Rolling Rebalance)
+
+✔️ Efficient Frontier v1 (MPT)
+
+✔️ Rolling Rebalance (Max Sharpe weights, monthly)
+
+✔️ เทียบกับ Equal-Weight (EW proxy)
+
+✔️ ทำ cumulative return chart
+
+✔️ ทำ drawdown comparison chart
+
+สิ่งที่เหลือ (Next Steps)
 W5–6 (ทำต่อ)
 
 Sentiment integration
 
-เปิด 06_sentiment_pipeline.ipynb
+เตรียม news_th.csv (จาก RSS script หรือ dummy)
 
-เตรียม news_th.csv (หรือใช้ dummy จาก template)
+รัน 06_sentiment_pipeline.ipynb → ได้ dataset_features_labels_with_sentiment.csv
 
-รันจนได้ dataset_features_labels_with_sentiment.csv
+เทรน LSTM/Transformer อีกครั้งพร้อมฟีเจอร์ Sentiment_Daily
 
-กลับไป 05_transformer_upgrade.ipynb แล้วรันใหม่เพื่อฝึก LSTM/Transformer พร้อมฟีเจอร์ Sentiment_Daily
+เปรียบเทียบ metrics ก่อน/หลังเพิ่ม sentiment
 
-เป้าหมายไฟล์:
+Portfolio side
 
-dataset_features_labels_with_sentiment.csv
+สรุป performance table: Sharpe, CAGR, MaxDD, Vol
 
-metrics_transformer_test.csv, metrics_lstm_test.csv
+รวม MaxSharpe vs EW → ตาราง + กราฟ rolling Sharpe
 
-backtest_transformer.csv, backtest_lstm.csv
+(Optional) เพิ่มค่าธรรมเนียม/transaction cost ให้ realistic
 
-Portfolio side (Rolling Rebalance + Metrics)
+W7: Explainability
 
-สร้าง/เปิด 02_mpt_rolling_rebalance.ipynb
+ทำ SHAP สำหรับ baseline (XGB)
 
-ขั้นตอน:
+ทำ Attention heatmap สำหรับ Transformer
 
-โหลดราคาหุ้น (ชุดเดียวกับ MPT v1)
+เขียนโน้ตอธิบาย “AI มองอะไรสำคัญ”
 
-คำนวณผลตอบแทนรายวัน → rolling window 252d → สร้าง Max-Sharpe weights รายเดือน
+W8: Serving
 
-ได้ซีรีส์ผลตอบแทนกลยุทธ์ (rolling_rebalance_returns.csv)
+FastAPI: endpoint /predict + /signal
 
-คำนวณ Sharpe, CAGR, MaxDD, Vol และเปรียบเทียบ EW
+Streamlit dashboard: แสดงราคา, สัญญาณ, น้ำหนักพอร์ต, metrics
 
-เป้าหมายไฟล์:
+🗂 ไฟล์สำคัญที่มีแล้ว
 
-rolling_weights_max_sharpe.csv
+01_data_ingestion.ipynb
 
-rolling_rebalance_returns.csv
+02_feature_label.ipynb
 
-strategy_performance_metrics.csv
+03_baselines.ipynb
 
-เคล็ดลับกัน error: รันโน้ตบุ๊กจากบนลงล่างในครั้งเดียวให้จบหนึ่ง workflow เพื่อเลี่ยง NameError (ตัวแปรหาย)
+05_transformer_upgrade.ipynb
 
-W7 Explainability
+06_sentiment_pipeline.ipynb
 
-SHAP สำหรับ XGB / linear (เริ่มง่าย)
-
-Attention heatmap สำหรับ Transformer (ดูว่าเน้น lag/feature ใด)
-
-ออกไฟล์: shap_summary.png, attention_heatmap.png, และ “notes อธิบายสัญญาณ”
-
-W8 Serving & Dashboard
-
-FastAPI: endpoint /predict + /signal (โหลด weights/saved scaler)
-
-Streamlit: dashboard แสดงราคา, สัญญาณ, เมตริก, น้ำหนักพอร์ต
-
-โครงไฟล์:
-
-src/serving/api.py (FastAPI)
-
-app/streamlit_app.py (Streamlit)
+02_mpt_rolling_rebalance.ipynb (พร้อม drawdown block)
