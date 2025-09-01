@@ -132,34 +132,34 @@ Portfolio side (MPT v1 → Rolling Rebalance)
 
 ✔️ ทำ drawdown comparison chart
 
-สิ่งที่เหลือ (Next Steps)
-W5–6 (ทำต่อ)
 
-Sentiment integration
+W5–6 
 
-เตรียม news_th.csv (จาก RSS script หรือ dummy)
+✔️ Sentiment integration
 
-รัน 06_sentiment_pipeline.ipynb → ได้ dataset_features_labels_with_sentiment.csv
+✔️ เตรียม news_th.csv (จาก RSS script หรือ dummy)
 
-เทรน LSTM/Transformer อีกครั้งพร้อมฟีเจอร์ Sentiment_Daily
+✔️ รัน 06_sentiment_pipeline.ipynb → ได้ dataset_features_labels_with_sentiment.csv
 
-เปรียบเทียบ metrics ก่อน/หลังเพิ่ม sentiment
+✔️ เทรน LSTM/Transformer อีกครั้งพร้อมฟีเจอร์ Sentiment_Daily
 
-Portfolio side
+✔️ เปรียบเทียบ metrics ก่อน/หลังเพิ่ม sentiment
 
-สรุป performance table: Sharpe, CAGR, MaxDD, Vol
+✔️ Portfolio side
 
-รวม MaxSharpe vs EW → ตาราง + กราฟ rolling Sharpe
+✔️ สรุป performance table: Sharpe, CAGR, MaxDD, Vol
 
-(Optional) เพิ่มค่าธรรมเนียม/transaction cost ให้ realistic
+✔️ รวม MaxSharpe vs EW → ตาราง + กราฟ rolling Sharpe
 
 W7: Explainability
 
-ทำ SHAP สำหรับ baseline (XGB)
+✔️ ทำ SHAP สำหรับ baseline (XGB)
 
-ทำ Attention heatmap สำหรับ Transformer
+✔️ ทำ Attention heatmap สำหรับ Transformer
 
-เขียนโน้ตอธิบาย “AI มองอะไรสำคัญ”
+✔️ เขียนโน้ตอธิบาย “AI มองอะไรสำคัญ”
+
+สิ่งที่เหลือ (Next Steps)
 
 W8: Serving
 
@@ -170,13 +170,11 @@ Streamlit dashboard: แสดงราคา, สัญญาณ, น้ำห�
 🗂 ไฟล์สำคัญที่มีแล้ว
 
 01_data_ingestion.ipynb
-
 02_feature_label.ipynb
-
 03_baselines.ipynb
-
 05_transformer_upgrade.ipynb
-
 06_sentiment_pipeline.ipynb
-
 02_mpt_rolling_rebalance.ipynb (พร้อม drawdown block)
+05_transformer_upgrade_add_sentiment.ipynb
+06_sentiment_pipeline.ipynb
+07_explainability_shap.ipynb
