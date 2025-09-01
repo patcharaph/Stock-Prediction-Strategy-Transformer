@@ -74,11 +74,13 @@ def predict_batch(rows: List[Features]):
     sig = (yh > 0).astype(int)*2 - 1
     return {"predictions": yh.tolist(), "signals": sig.tolist()}
 
+OUT = Path("outputs")   # <— เพิ่มบรรทัดนี้
+
 @app.get("/signal")
 def latest_signal():
-    p = Path("backtest_transformer.csv")
+    p = OUT / "backtest_transformer.csv"   # <— แก้มาอ่านจาก outputs/
     if not p.exists():
-        return {"error": "backtest_transformer.csv not found"}
+        return {"error": "outputs/backtest_transformer.csv not found"}
     df = pd.read_csv(p, index_col=0, parse_dates=True)
     last_date = str(df.index[-1].date())
     return {"date": last_date, "row": df.iloc[-1].to_dict()}

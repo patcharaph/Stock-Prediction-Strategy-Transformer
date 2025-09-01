@@ -1,5 +1,5 @@
 # app/streamlit_app.py
-# pip install streamlit pandas numpy requests
+#pip install streamlit pandas numpy requests
 import streamlit as st, pandas as pd, numpy as np, requests, os
 
 st.set_page_config(page_title="Finance AI Dashboard", layout="wide")
@@ -29,12 +29,12 @@ with tab1:
 
     st.subheader("Backtest Curves")
     try:
-        bt_trf = pd.read_csv("backtest_transformer.csv", index_col=0, parse_dates=True)
+        bt_trf = pd.read_csv("outputs/backtest_transformer.csv", index_col=0, parse_dates=True)
         df_lines = pd.DataFrame({"Market": bt_trf["Return"].cumsum(),
                                  "Transformer": bt_trf["Strat_TRF"].cumsum()})
         # เพิ่ม LSTM ถ้ามี
         if os.path.exists("backtest_lstm.csv"):
-            bt_lstm = pd.read_csv("backtest_lstm.csv", index_col=0, parse_dates=True)
+            bt_lstm = pd.read_csv("outputs/backtest_lstm.csv", index_col=0, parse_dates=True)
             df_lines["LSTM"] = bt_lstm["Strat_LSTM"].cumsum()
         st.line_chart(df_lines)
     except Exception as e:
@@ -43,10 +43,10 @@ with tab1:
 with tab2:
     st.subheader("Rolling Rebalance")
     try:
-        rr = pd.read_csv("rolling_rebalance_returns.csv", index_col=0, parse_dates=True).iloc[:,0]
+        rr = pd.read_csv("outputs/rolling_rebalance_returns.csv", index_col=0, parse_dates=True).iloc[:,0]
         st.line_chart(rr.cumsum())
         if os.path.exists("rolling_weights_max_sharpe.csv"):
-            w = pd.read_csv("rolling_weights_max_sharpe.csv", index_col=0, parse_dates=True)
+            w = pd.read_csv("outputs/rolling_weights_max_sharpe.csv", index_col=0, parse_dates=True)
             st.caption("Latest weights (12 rebalance points)")
             st.dataframe(w.tail(12))
     except Exception as e:
@@ -55,7 +55,7 @@ with tab2:
 with tab3:
     st.subheader("Performance Metrics")
     try:
-        mets = pd.read_csv("strategy_performance_metrics.csv")
+        mets = pd.read_csv("outputs/strategy_performance_metrics.csv")
         st.dataframe(mets)
     except Exception as e:
         st.info("Place strategy_performance_metrics.csv in working dir.")
